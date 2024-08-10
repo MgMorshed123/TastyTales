@@ -22,6 +22,7 @@
     max-width: 50%;
     bottom: 10%;
     left: 6vw;
+    animation: fadeIn 3s;
 
 }
 
@@ -49,7 +50,7 @@
     background-color:white;
     font-size:max(1vw , 13px);
     border-radius: 50px;
-    
+
 
 
 }
