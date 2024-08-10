@@ -40,9 +40,34 @@
 
 .navbar button:hover {
     background-color: #fff4f2;
+}
 
+
+.navbar .active {
+    padding: 2px;
+    border-bottom: 2px solid tomato;
+    transition: .2s;
+}
+
+
+.navbar-search-icon {
+
+    position: relative;
 
 }
 
 
+.navbar-search-icon .dot {
 
+    position: absolute;
+    min-width: 10px;
+    min-height: 10px;
+    background-color: tomato;
+    border-radius: 5px;
+    top: -8px;
+    right: -8px;
+    
+
+
+
+}
