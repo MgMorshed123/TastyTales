@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import Cart from "./pages/Cart/Cart";
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import Home from "./pages/Home/Home";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/placeOrder" element={<PlaceOrder></PlaceOrder>} />
         </Routes>
       </div>
+      <Footer></Footer>
     </>
   );
 }
