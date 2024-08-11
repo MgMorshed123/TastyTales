@@ -5,6 +5,7 @@ import FoodItem from "../FoodItem/FoodItem";
 import "./FoodDisplay.css";
 const FoodDisplay = ({ category }) => {
   const { food_list } = useContext(StoreContext);
+  console.log(food_list);
 
   return (
     <div className="food-display" id="food-display">
@@ -14,6 +15,7 @@ const FoodDisplay = ({ category }) => {
           return (
             <FoodItem
               key={index}
+              id={item._id}
               name={item.name}
               price={item.price}
               description={item.description}
