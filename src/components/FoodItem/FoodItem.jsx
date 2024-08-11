@@ -31,7 +31,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
               alt=""
               srcset=""
             />
-            <p>{itemCount}</p>
+            <p>{cartItems[id]}</p>
             <img
               onClick={() => addToCart(id)}
               src={assets.add_icon_green}
@@ -43,8 +43,8 @@ const FoodItem = ({ id, name, price, description, image }) => {
 
         <div className="food-item-info">
           <div className="food-item-name-rating">
-            <img src={assets.rating_starts} alt="" srcset="" />
             <p>{name}</p>
+            <img src={assets.rating_starts} alt="" srcset="" />
           </div>
 
           <p className="food-item-desc">{description}</p>
