@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/food del assets/frontend_assets/assets";
-
-const Navbar = () => {
+import { Link } from "react-router-dom";
+const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("Home");
 
   return (
@@ -10,30 +10,35 @@ const Navbar = () => {
       <img src={assets.logo} alt="" srcset="" />
 
       <ul className="navbar-menu">
-        <li
+        <Link
+          to="/"
           onClick={() => setMenu("Home")}
           className={menu === "Home" ? "active" : ""}
         >
           Home
-        </li>
-        <li
+        </Link>
+
+        <a
+          href="#explore-menu"
           onClick={() => setMenu("Menu")}
           className={menu === "Menu" ? "active" : ""}
         >
           Menu
-        </li>
-        <li
+        </a>
+        <a
+          href="#app-download"
           onClick={() => setMenu("Mobile-App")}
           className={menu === "Mobile-App" ? "active" : ""}
         >
           Mobile-App
-        </li>
-        <li
+        </a>
+        <a
+          href="#footer"
           onClick={() => setMenu("Contact-Us")}
           className={menu === "Contact-Us" ? "active" : ""}
         >
           Contact-Us
-        </li>
+        </a>
       </ul>
 
       <div className="navbar-right">
@@ -43,7 +48,7 @@ const Navbar = () => {
           <img src={assets.basket_icon} alt="" srcset="" />
           <div className="dot"></div>
         </div>
-        <button>Sign In</button>
+        <button onClick={() => setShowLogin(true)}>Sign In</button>
       </div>
     </div>
   );
