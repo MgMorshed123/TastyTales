@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { assets } from "../../assets/food del assets/frontend_assets/assets";
+import "./Login.css";
 
 const Login = ({ setShowLogin }) => {
   const [currState, setCurrState] = useState("login");
