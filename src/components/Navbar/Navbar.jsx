@@ -55,7 +55,7 @@ const Navbar = ({ setShowLogin }) => {
             {" "}
             <img src={assets.basket_icon} alt="" srcset="" />
           </Link>
-          <div className={getTotalCartAmount === 0 ? " " : "dot"}></div>
+          <div className={getTotalCartAmount() === 0 ? " " : "dot"}></div>
         </div>
         <button onClick={() => setShowLogin(true)}>Sign In</button>
       </div>
