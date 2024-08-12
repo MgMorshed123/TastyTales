@@ -3,7 +3,10 @@ import { food_list } from "../../assets/food del assets/frontend_assets/assets";
 import { StoreContext } from "../../Context/StoreContext";
 import "./Cart.css";
 const Cart = () => {
-  const { cartItems, removeFromCart } = useContext(StoreContext);
+  const { cartItems, removeFromCart, food_list, getTotalCartAmount } =
+    useContext(StoreContext);
+
+  let deliveryFee = Math.round(getTotalCartAmount() * 0.1);
   console.log(cartItems);
   return (
     <div className="cart">
@@ -48,20 +51,20 @@ const Cart = () => {
           <div>
             <div className="cart-total-details">
               <p>SubTotal</p>
-              <p>{0}</p>
+              <p>{getTotalCartAmount()}</p>
             </div>
 
             <hr />
             <div className="cart-total-details">
-              <p>Delivery Fee</p>
-              <p>{0}</p>
+              <p>Delivery Fee (10%)</p>
+              <p> {deliveryFee} </p>
             </div>
 
             <hr />
 
             <div className="cart-total-details">
               <p>Total</p>
-              <b>{0}</b>
+              <b>{getTotalCartAmount() + deliveryFee}</b>
             </div>
 
             <hr />
