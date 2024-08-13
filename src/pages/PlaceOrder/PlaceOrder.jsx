@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { StoreContext } from "../../Context/StoreContext";
+import "./PlaceOrder.css";
 
 const PlaceOrder = () => {
   const { getTotalCartAmount } = useContext(StoreContext);
@@ -28,7 +29,7 @@ const PlaceOrder = () => {
           <input type="text" placeholder="Zip Code " />
           <input type="text" placeholder="Country" />
         </div>
-        <input type="text" PlaceOrder="Phone" />
+        <input type="text" placeholder="Phone" />
       </div>
 
       <div className="place-order-right">
