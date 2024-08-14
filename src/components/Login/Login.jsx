@@ -26,11 +26,11 @@ const Login = ({ setShowLogin }) => {
   const onLogin = async (event) => {
     event.preventDefault();
 
-    let newUrl = url;
+    let newUrl;
     if (currState === "login") {
-      newUrl += "/api/user/login";
+      newUrl = "http://localhost:4000/api/auth/login";
     } else {
-      newUrl += "/api/user/register";
+      newUrl = "http://localhost:4000/api/auth/register";
     }
 
     const response = await axios.post(newUrl, data);

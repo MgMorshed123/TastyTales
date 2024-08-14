@@ -69,6 +69,28 @@
     
 }
 
+.navbar-profile {
+
+    position: relative;
+
+
+}
+
+.navbar-profile-dropdown{
+ position: absolute;
+ display: none;
+ right: 0;
+ z-index: 1;
+}
+
+.navbar-profile{
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+
 @media (max-width:1050px) {
 
 
