@@ -3,6 +3,7 @@ import { assets } from "../../assets/food del assets/frontend_assets/assets";
 import "./Login.css";
 import { useContext } from "react";
 import { StoreContext } from "../../Context/StoreContext";
+import axios from "axios";
 
 const Login = ({ setShowLogin }) => {
   const [currState, setCurrState] = useState("login");
