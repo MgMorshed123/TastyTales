@@ -13,18 +13,40 @@ const Login = ({ setShowLogin }) => {
     password: "",
   });
 
-  const { url } = useContext(StoreContext);
+  const { url, token, setToken } = useContext(StoreContext);
 
   const onChangeHandler = (event) => {
-    const name = event.taget.name;
+    const name = event.target.name;
     const value = event.target.value;
 
     setData((data) => ({ ...data, [name]: value }));
   };
 
+  const onLogin = async (event) => {
+    event.preventDefault();
+
+    let newUrl = url;
+    if (currState === "login") {
+      newUrl += "/api/user/login";
+    } else {
+      newUrl += "/api/user/register";
+    }
+
+    const response = await axios.post(newUrl, data);
+
+    if (response.data.success) {
+      setToken(response.data.token);
+
+      localStorage.setItem("TOKEN", response.data.token);
+      setShowLogin(false);
+    } else {
+      alert(response.data.message);
+    }
+  };
+
   return (
     <div className="login-popup">
-      <div className="login-popup-container">
+      <form className="login-popup-container">
         <div className="login-popup-title">
           <h2>{currState}</h2>
           <img
@@ -41,9 +63,9 @@ const Login = ({ setShowLogin }) => {
           ) : (
             <input
               onChange={onChangeHandler}
-              value={data.name}
               type="text"
               name="name"
+              value={data.name}
               placeholder="Your name"
               required
             />
@@ -68,7 +90,7 @@ const Login = ({ setShowLogin }) => {
           />
         </div>
 
-        <button>
+        <button onClick={onLogin} type="submit">
           {" "}
           {currState === "Sign-up" ? "Create-account" : "Login"}{" "}
         </button>
@@ -87,7 +109,7 @@ const Login = ({ setShowLogin }) => {
             Already Have an Account ? <span>Login Here </span>
           </p>
         )}
-      </div>
+      </form>
     </div>
   );
 };
