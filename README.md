@@ -1,9 +1,30 @@
-# React + Vite
+# Food Delivery App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack food delivery application built using React, Node.js, Express, and MongoDB.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-"# TastyTales" 
+- **User Functionalities:**
+
+  - Add to Cart
+  - Checkout
+  - Search for Products
+  - User Registration and Login
+
+- **Admin Functionalities:**
+  - Add New Products
+  - Delete Existing Products
+  - Manage Orders
+
+## Technologies Used
+
+- **Frontend:** React
+- **Backend:** Node.js, Express
+- **Database:** MongoDB
+
+## Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/food-delivery-app.git
+   ```

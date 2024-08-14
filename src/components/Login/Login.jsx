@@ -1,9 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/food del assets/frontend_assets/assets";
 import "./Login.css";
 
 const Login = ({ setShowLogin }) => {
   const [currState, setCurrState] = useState("login");
+
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const onChangeHandler = (event) => {
+    const name = event.taget.name;
+    const value = event.target.value;
+
+    setData((data) => ({ ...data, [name]: value }));
+  };
 
   return (
     <div className="login-popup">
@@ -22,13 +35,29 @@ const Login = ({ setShowLogin }) => {
           {currState === "login" ? (
             <></>
           ) : (
-            <input type="text" placeholder="Your name" required />
+            <input
+              onChange={onChangeHandler}
+              value={data.name}
+              type="text"
+              name="name"
+              placeholder="Your name"
+              required
+            />
           )}
-          <input type="email" name="" placeholder="Your email" required />
+          <input
+            type="email"
+            name="email"
+            onChange={onChangeHandler}
+            value={data.email}
+            placeholder="Your email"
+            required
+          />
 
           <input
             type="password"
-            name=""
+            onChange={onChangeHandler}
+            value={data.password}
+            name="password"
             placeholder="Your password"
             id=""
             required
