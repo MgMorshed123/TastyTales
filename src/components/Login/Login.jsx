@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/food del assets/frontend_assets/assets";
 import "./Login.css";
+import { useContext } from "react";
+import { StoreContext } from "../../Context/StoreContext";
 
 const Login = ({ setShowLogin }) => {
   const [currState, setCurrState] = useState("login");
@@ -10,6 +12,8 @@ const Login = ({ setShowLogin }) => {
     email: "",
     password: "",
   });
+
+  const { url } = useContext(StoreContext);
 
   const onChangeHandler = (event) => {
     const name = event.taget.name;
