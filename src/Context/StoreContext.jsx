@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { food_list } from "../assets/food del assets/frontend_assets/assets";
+import axios from "axios";
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
@@ -8,13 +8,30 @@ const StoreContextProvider = (props) => {
   const url = "https://localhost:4000";
 
   const [token, setToken] = useState("");
+  const [food_list, setFoodList] = useState([]);
+  console.log(food_list);
 
-  const addToCart = (itemId) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const addToCart = async (itemId) => {
     console.log(itemId);
-    if (!cartItems[itemId]) {
-      setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
-    } else {
-      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+
+    setCartItems((prev) => ({ ...prev, [itemId]: (prev[itemId] || 0) + 1 }));
+
+    if (token) {
+      setIsLoading(true);
+      try {
+        await axios.post(
+          "http://localhost:4000/api/cart/addTocart",
+          { itemId },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.error("Failed to add item to cart:", error);
+        // Optionally, you could revert the cart update here if needed
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -50,6 +67,22 @@ const StoreContextProvider = (props) => {
     token,
     setToken,
   };
+
+  const fetchFoodList = async () => {
+    const response = await axios.get("http://localhost:4000/api/food/list");
+    console.log(response.data.data);
+    setFoodList(response.data.data);
+  };
+
+  useEffect(() => {
+    async function loadData() {
+      await fetchFoodList();
+      if (localStorage.getItem("TOKEN")) {
+        setToken(localStorage.getItem("TOKEN"));
+      }
+    }
+    loadData();
+  }, []);
 
   return (
     <StoreContext.Provider value={contextValue}>
