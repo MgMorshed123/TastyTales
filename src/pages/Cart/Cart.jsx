@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { food_list } from "../../assets/food del assets/frontend_assets/assets";
 import { StoreContext } from "../../Context/StoreContext";
 import "./Cart.css";
 import { useNavigate } from "react-router-dom";
@@ -7,9 +6,11 @@ const Cart = () => {
   const { cartItems, removeFromCart, food_list, getTotalCartAmount } =
     useContext(StoreContext);
 
+  console.log("cartjsx cartItemn", cartItems);
   let deliveryFee = Math.round(getTotalCartAmount() * 0.1);
 
   const navigate = useNavigate();
+  console.log("localStorage.getItem", localStorage.getItem("TOKEN"));
 
   return (
     <div className="cart">
@@ -27,8 +28,8 @@ const Cart = () => {
         <hr />
 
         {food_list.map((item, index) => {
-          console.log(item);
-          if (cartItems[item._id] > 0) {
+          // console.log(item);
+          if (cartItems?.[item._id] > 0) {
             return (
               <>
                 <div className="cart-items-title cart-items-item">

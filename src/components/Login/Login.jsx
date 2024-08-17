@@ -38,6 +38,7 @@ const Login = ({ setShowLogin }) => {
     if (response.data.success) {
       setToken(response.data.token);
 
+      console.log("login", response);
       localStorage.setItem("TOKEN", response.data.token);
       setShowLogin(false);
     } else {
