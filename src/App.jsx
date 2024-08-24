@@ -22,7 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home></Home>} />
           <Route path="/cart" element={<Cart></Cart>} />
-          <Route path="cart/placeOrder" element={<PlaceOrder></PlaceOrder>} />
+          <Route path="/order" element={<PlaceOrder></PlaceOrder>} />
         </Routes>
       </div>
       <Footer></Footer>
