@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../Context/StoreContext";
 import "./PlaceOrder.css";
+import axios from "axios";
 
 const PlaceOrder = () => {
   const { getTotalCartAmount, token, food_list, cartItems, url } =
     useContext(StoreContext);
+
+  console.log("token", token);
 
   const [data, setData] = useState({
     firstName: "",
@@ -33,21 +36,41 @@ const PlaceOrder = () => {
   const placeorder = async (event) => {
     event.preventDefault();
 
-    let orderItmes = [];
+    try {
+      let orderItems = [];
 
-    food_list.map((item) => {
-      if (cartItems[item._id] > 0) {
-        let itemInfo = item;
-        itemInfo["quantity"] = cartItems[item._id];
-        orderItmes.push(itemInfo);
+      food_list.forEach((item) => {
+        if (cartItems[item._id] > 0) {
+          let itemInfo = { ...item, quantity: cartItems[item._id] };
+          orderItems.push(itemInfo);
+        }
+      });
+
+      let orderData = {
+        address: data,
+        items: orderItems,
+        amount: getTotalCartAmount() + deliveryFee,
+      };
+
+      const response = await axios.post(
+        "http://localhost:4000/api/order/place",
+        orderData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.success) {
+        const { session_url } = response.data;
+        window.location.replace(session_url);
+      } else {
+        console.log("Order failed:", response.data);
       }
-    });
-
-    let orderData = {
-      address: data,
-      items: orderItmes,
-      amount: getTotalCartAmount() + 2,
-    };
+    } catch (error) {
+      console.error("Error placing order:", error);
+    }
   };
 
   return (
