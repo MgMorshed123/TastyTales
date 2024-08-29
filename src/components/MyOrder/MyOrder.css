@@ -13,6 +13,33 @@
 
 }
 
+.container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .blurred {
+    filter: blur(10px);
+    opacity: 0.6;
+    transition: filter 0.5s ease-out, opacity 0.5s ease-out;
+  }
+  
+  .clear {
+    filter: blur(0);
+    opacity: 1;
+    transition: filter 0.5s ease-in, opacity 0.5s ease-in;
+  }
+  
+  .my-orders-order {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    background-color: #fff;
+  }
+  
 
 .my-orders-order {
     display: grid;

@@ -12,6 +12,10 @@
 
 }
 
+.title {
+    color: tomato;
+}
+
 .navbar-menu{
     display: flex;
     list-style: none;

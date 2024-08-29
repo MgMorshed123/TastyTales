@@ -20,8 +20,7 @@ const Navbar = ({ setShowLogin }) => {
   return (
     <div className="navbar">
       <Link to="/">
-        {" "}
-        <img src={assets.logo} alt="" srcset="" />
+        <h1 className="title">Zomato</h1>
       </Link>
       <ul className="navbar-menu">
         <Link
@@ -56,8 +55,6 @@ const Navbar = ({ setShowLogin }) => {
       </ul>
 
       <div className="navbar-right">
-        <img src={assets.search_icon} alt="" srcset="" />
-
         {token ? (
           <>
             <div className="navbar-search-icon">
@@ -79,8 +76,7 @@ const Navbar = ({ setShowLogin }) => {
             <img src={assets.profile_icon} alt="" srcset="" />
 
             <ul className="navbar-profile-dropdown">
-              <li>
-                {" "}
+              <li onClick={() => navigate("/myorder")}>
                 <img src={assets.bag_icon} alt="" srcset="" /> <p>Orders</p>
               </li>
               <li>

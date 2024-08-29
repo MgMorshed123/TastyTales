@@ -2,10 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../Context/StoreContext";
 import "./PlaceOrder.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
   const { getTotalCartAmount, token, food_list, cartItems, url } =
     useContext(StoreContext);
+
+  const navigate = useNavigate();
 
   console.log("token", token);
 
@@ -20,7 +23,7 @@ const PlaceOrder = () => {
     phone: "",
   });
 
-  let deliveryFee = Math.round(getTotalCartAmount() * 0.1);
+  let deliveryFee = 4;
 
   const onChangeHandler = (event) => {
     const name = event.target.name;
@@ -72,6 +75,14 @@ const PlaceOrder = () => {
       console.error("Error placing order:", error);
     }
   };
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/cart");
+    } else if (getTotalCartAmount() === 0) {
+      navigate("/cart");
+    }
+  }, [token]);
 
   return (
     <form onSubmit={placeorder} className="place-order">
@@ -175,7 +186,7 @@ const PlaceOrder = () => {
 
             <hr />
             <div className="cart-total-details">
-              <p>Delivery Fee (10%)</p>
+              <p>Delivery Fee </p>
               <p> {deliveryFee} </p>
             </div>
 

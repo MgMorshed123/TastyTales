@@ -1,16 +1,55 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../Context/StoreContext";
 import "./Cart.css";
+import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-const Cart = () => {
-  const { cartItems, removeFromCart, food_list, getTotalCartAmount } =
-    useContext(StoreContext);
 
-  console.log("cartjsx cartItemn", cartItems);
-  let deliveryFee = Math.round(getTotalCartAmount() * 0.1);
+const Cart = () => {
+  const { food_list } = useContext(StoreContext);
+  const [cartItems, setCartItems] = useState([]);
+
+  const getTotalCartAmount = () => {
+    let totalAmount = 0;
+    for (const item in cartItems) {
+      if (cartItems[item] > 0) {
+        let itemInfo = food_list.find((product) => product._id === item);
+        if (itemInfo) {
+          totalAmount += itemInfo.price * cartItems[item];
+        }
+      }
+    }
+    return totalAmount;
+  };
+
+  const removeFromCart = async (itemId) => {
+    console.log(itemId);
+    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    if (token) {
+      try {
+        await axios.post(
+          "http://localhost:4000/api/cart/removeFromCart",
+          { itemId },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      } catch (error) {
+        console.error("Failed to remove item from cart:", error);
+      }
+    }
+  };
+
+  const deliveryFee = 4;
 
   const navigate = useNavigate();
-  console.log("localStorage.getItem", localStorage.getItem("TOKEN"));
+
+  useEffect(() => {
+    // Retrieve cart items from localStorage
+    const storedCartItems = localStorage.getItem("cartItems");
+    if (storedCartItems) {
+      setCartItems(JSON.parse(storedCartItems));
+    } else {
+      console.log("No cart items found in localStorage.");
+    }
+  }, []); // Empty dependency array, runs only once
 
   return (
     <div className="cart">
@@ -27,18 +66,21 @@ const Cart = () => {
         <br />
         <hr />
 
-        {food_list.map((item, index) => {
-          // console.log(item);
+        {food_list.map((item) => {
           if (cartItems?.[item._id] > 0) {
             return (
-              <>
-                <div className="cart-items-title cart-items-item">
+              <React.Fragment key={item._id}>
+                <motion.div
+                  className="cart-items-title cart-items-item"
+                  initial={{ filter: "blur(10px)" }}
+                  animate={{ filter: "blur(0px)" }}
+                  transition={{ duration: 0.5 }}
+                >
                   <img
                     src={`http://localhost:4000/images/${item.image}`}
                     alt=""
-                    srcset=""
+                    srcSet=""
                   />
-
                   <p>{item.name}</p>
                   <p>${item.price}</p>
                   <p>{cartItems[item._id]}</p>
@@ -46,11 +88,12 @@ const Cart = () => {
                   <p onClick={() => removeFromCart(item._id)} className="cross">
                     x
                   </p>
-                </div>
+                </motion.div>
                 <hr />
-              </>
+              </React.Fragment>
             );
           }
+          return null;
         })}
       </div>
 
@@ -66,8 +109,8 @@ const Cart = () => {
 
             <hr />
             <div className="cart-total-details">
-              <p>Delivery Fee (10%)</p>
-              <p> {deliveryFee} </p>
+              <p>Delivery Fee </p>
+              {cartItems ? <p>{deliveryFee}</p> : ""}
             </div>
 
             <hr />
@@ -81,15 +124,14 @@ const Cart = () => {
           </div>
 
           <Link to="/order" className="button">
-            Proceed To Checkout{" "}
+            Proceed To Checkout
           </Link>
         </div>
         <div className="cart-promocode">
           <div>
-            <p>If you have a promo code , Enter it here </p>
+            <p>If you have a promo code, enter it here</p>
             <div className="cart-promocode-input">
-              <input type="text" name="" id="" placeholder="promocode" />
-
+              <input type="text" placeholder="Promo code" />
               <button className="button">Submit</button>
             </div>
           </div>
