@@ -1,4 +1,4 @@
-# 🍽️ Zomato Client Side Code
+# 🍽️ Zomato Client Side
 ![image](https://github.com/user-attachments/assets/5fc538f2-a384-4af4-902e-1eb33fae8f79)
 
 
