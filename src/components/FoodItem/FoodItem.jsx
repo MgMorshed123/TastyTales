@@ -15,7 +15,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
     <div className="food-item">
       <div className="food-item-img-container">
         <img
-          src={`http://localhost:4000/images/${image}`}
+          src={`https://zomato-1-uz5r.onrender.com/images/${image}`}
           className="food-item-image"
           alt=""
           srcset=""
